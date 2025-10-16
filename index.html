@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>F 1.4.3 – Küsimuse/ettepaneku vorm | Fortaco Estonia OÜ, Narva</title>
+  <style>
+    @font-face { font-family: 'DIN Pro'; src: local('DIN Pro'), url('DINPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'DIN Pro Black'; src: local('DIN Pro Black'), url('DINPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+
+    :root { --fg: #111827; --muted: #4b5563; --accent: #f6c000; --border: #e5e7eb; --border-strong: #dcdcdc; --bg: #f9fafb; --paper: #ffffff; }
+    * { box-sizing: border-box; }
+    body { font-family: 'DIN Pro', sans-serif; color: var(--fg); background: var(--bg); margin: 0; }
+    .container { max-width: 960px; margin: 32px auto; padding: 0 16px; }
+    .sheet { background: var(--paper); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.06); padding: 28px; overflow: hidden; }
+
+    header { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; border-bottom: 2px solid var(--border); padding-bottom: 16px; margin-bottom: 16px; }
+
+    .brand { font-family: 'DIN Pro Black'; font-weight: 900; line-height: 1.35; }
+    .brand small { display:block; font-family: 'DIN Pro'; color: var(--muted); font-weight: 400; margin-top: 2px; }
+    .brand-address { margin-top: 10px; font-family: 'DIN Pro'; font-weight: 400; color: var(--fg); line-height: 1.3; }
+
+    .meta { border: 1px solid var(--border-strong); border-radius: 10px; padding: 12px 16px; background: #fff; }
+    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 36px; min-width: 360px; }
+    .meta-item { font-size: 12px; line-height: 1.35; color: var(--muted); white-space: nowrap; }
+    .meta-strong { font-size: 13px; color: var(--fg); font-weight: 600; }
+
+    h1 { margin: 18px 0 4px; font-size: 22px; font-family: 'DIN Pro Black'; }
+    .subtitle { color: var(--muted); margin-bottom: 18px; font-size: 13px; }
+
+    form { display: grid; gap: 16px; }
+    .field { display: grid; gap: 4px; }
+    label { font-size: 14px; font-weight: 600; color: var(--fg); }
+    label span { display:block; font-size: 12px; color: var(--muted); font-weight: 400; }
+    input, textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: #fff; font: inherit; }
+    textarea { min-height: 160px; resize: vertical; }
+
+    .row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; border-top: 1px dashed var(--border); padding-top: 16px; }
+    button { border: 1px solid var(--border); background: #fff; padding: 10px 14px; border-radius: 12px; cursor: pointer; font-weight: 600; font-family: 'DIN Pro'; }
+    button.primary { background: var(--accent); border-color: #d4a800; }
+    button span { display:block; font-size: 11px; color: var(--muted); font-weight: 400; line-height: 1.2; }
+
+    @media (max-width: 760px) {
+      header { grid-template-columns: 1fr; }
+      .meta-grid { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sheet">
+      <header>
+        <div>
+          <div class="brand">
+            Süsteemihaldus
+            <small>Система Менеджмента · Management System</small>
+          </div>
+          <div class="brand-address">
+            Fortaco Estonia OÜ<br>
+            Linda 20<br>
+            20309 Narva<br>
+            Eesti
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-grid">
+            <div class="meta-item">Autor / Автор / Author<br><span class="meta-strong">S. Yurkova</span></div>
+            <div class="meta-item">Kinnitatud / Акцептировано / Accepted by<br><span class="meta-strong">L. Shabunova</span></div>
+            <div class="meta-item">Versioon / Версия / Version<br><span class="meta-strong">1</span></div>
+            <div class="meta-item">Kehtib alates / Годна с / Valid from<br><span class="meta-strong">2008-11-01</span></div>
+            <div class="meta-item">Leht / Страница / Page<br><span class="meta-strong">1/1</span></div>
+            <div class="meta-item">Number / Номер / Number<br><span class="meta-strong">F 1.4.3</span></div>
+          </div>
+        </div>
+      </header>
+
+      <h1>Küsimuse/ettepaneku vorm</h1>
+      <div class="subtitle">Форма для вопросов/предложений · Question/proposal form</div>
+
+      <form id="f143">
+        <div class="row">
+          <div class="field">
+            <label for="date">Kuupäev<span>Дата / Date</span></label>
+            <input id="date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label for="name">Nimi<span>Имя / Name</span></label>
+            <input id="name" name="name" type="text" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="dept">Osakond / Tsehh<span>Отдел, цех / Department</span></label>
+            <input id="dept" name="department" type="text" required>
+          </div>
+          <div class="field">
+            <label for="contact">Kontakttelefon või e-mail<span>Контактный телефон или эл. адрес / Contact phone or e-mail</span></label>
+            <input id="contact" name="contact" type="text" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">Küsimus või ettepanek<span>Вопрос/предложение / Question/proposal</span></label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <div class="actions">
+          <button class="primary" type="submit">Saada e-postiga<span>Отправить по e-mail · Send by e-mail</span></button>
+          <button type="button" id="save">Salvesta mustand<span>Сохранить черновик · Save draft</span></button>
+          <button type="button" id="clear">Tühjenda<span>Очистить форму · Clear form</span></button>
+          <button type="button" id="print">Prindi / PDF<span>Печать / PDF · Print / PDF</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const form=document.getElementById('f143');
+      const KEY='f143_draft_v1';
+      try{const s=JSON.parse(localStorage.getItem(KEY)||'{}');['date','name','department','contact','message'].forEach(id=>{if(s[id]){(document.getElementById(id==='department'?'dept':id)||{}).value=s[id];}});}catch(e){}
+      form.addEventListener('input',()=>{const d={date:date.value,name:name.value,department:dept.value,contact:contact.value,message:message.value};localStorage.setItem(KEY,JSON.stringify(d));});
+      clear.onclick=()=>{if(confirm('Kas kustutada vorm ja mustand?')){form.reset();localStorage.removeItem(KEY);}};
+      print.onclick=()=>window.print();
+      form.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(form);const t='svetlana.yurkova@fortacogroup.com';const s=encodeURIComponent('F 1.4.3 – Küsimuse/ettepaneku vorm');const b=encodeURIComponent('Kuupäev: '+d.get('date')+'\nNimi: '+d.get('name')+'\nOsakond: '+d.get('department')+'\nKontakt: '+d.get('contact')+'\n\n'+d.get('message'));window.location.href=`mailto:${t}?subject=${s}&body=${b}`;});
+    })();
+  </script>
+</body>
+</html>
