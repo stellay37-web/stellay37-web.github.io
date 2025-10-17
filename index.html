@@ -41,6 +41,10 @@
     button { border: 1px solid var(--border); background: #fff; padding: 10px 14px; border-radius: 12px; cursor: pointer; font-weight: 600; font-family: 'DIN Pro'; }
     button.primary { background: var(--accent); border-color: #d4a800; }
     button span { display:block; font-size: 11px; color: var(--muted); font-weight: 400; line-height: 1.2; }
+    button:disabled { 
+      opacity: 0.5; 
+      cursor: not-allowed; 
+    }
 
     @media (max-width: 760px) {
       header { grid-template-columns: 1fr; }
@@ -118,7 +122,7 @@
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     (function(){
       const form=document.getElementById('f143');
       const KEY='f143_draft_v1';
@@ -128,7 +132,111 @@
       print.onclick=()=>window.print();
       form.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(form);const t='svetlana.yurkova@fortacogroup.com';const s=encodeURIComponent('F 1.4.3 – Küsimuse/ettepaneku vorm');const b=encodeURIComponent('Kuupäev: '+d.get('date')+'\nNimi: '+d.get('name')+'\nOsakond: '+d.get('department')+'\nKontakt: '+d.get('contact')+'\n\n'+d.get('message'));window.location.href=`mailto:${t}?subject=${s}&body=${b}`;});
     })();
-  </script>
+  </script>-->
+
+<script>
+(function () {
+  'use strict';
+
+  // --- Elements ---
+  const form = document.getElementById('f143');
+  const el = {
+    date: document.getElementById('date'),
+    name: document.getElementById('name'),
+    dept: document.getElementById('dept'),
+    contact: document.getElementById('contact'),
+    message: document.getElementById('message'),
+  };
+  const btnSave  = document.getElementById('save');
+  const btnClear = document.getElementById('clear');
+  const btnPrint = document.getElementById('print');
+
+  // --- Draft load/save ---
+  const KEY = 'f143_draft_v1';
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if (s.date)       el.date.value = s.date;
+    if (s.name)       el.name.value = s.name;
+    if (s.department) el.dept.value = s.department;
+    if (s.contact)    el.contact.value = s.contact;
+    if (s.message)    el.message.value = s.message;
+  } catch (e) {}
+
+  form.addEventListener('input', () => {
+    const d = {
+      date: el.date.value,
+      name: el.name.value,
+      department: el.dept.value,
+      contact: el.contact.value,
+      message: el.message.value
+    };
+    localStorage.setItem(KEY, JSON.stringify(d));
+  });
+
+  // --- Clear / Print / Submit ---
+  btnClear.onclick = () => {
+    if (confirm('Kas kustutada vorm ja mustand?')) {
+      form.reset();
+      localStorage.removeItem(KEY);
+    }
+  };
+
+  // (По умолчанию печать есть, но кнопку мы ниже задизейблим)
+  btnPrint.onclick = () => window.print();
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const t = 'svetlana.yurkova@fortacogroup.com';
+    const s = encodeURIComponent('F 1.4.3 – Küsimuse/ettepaneku vorm');
+    const b = encodeURIComponent(
+      'Kuupäev: ' + d.get('date') +
+      '\nNimi: ' + d.get('name') +
+      '\nOsakond: ' + d.get('department') +
+      '\nKontakt: ' + d.get('contact') +
+      '\n\n' + d.get('message')
+    );
+    window.location.href = `mailto:${t}?subject=${s}&body=${b}`;
+  });
+
+  // --- "В разработке": делаем кнопки неактивными (серые и некликабельные) ---
+  btnSave.disabled  = true;
+  btnPrint.disabled = true;
+  btnSave.onclick   = null;
+  btnPrint.onclick  = null;
+
+  // --- Responsive behavior without touching CSS (на случай, если CSS не применится) ---
+  function applyResponsive() {
+    const isNarrow = window.matchMedia('(max-width: 760px)').matches;
+
+    // header: 2 колонки -> 1 колонка
+    const header = document.querySelector('header');
+    if (header) {
+      header.style.gridTemplateColumns = isNarrow ? '1fr' : '1fr auto';
+    }
+
+    // meta-grid: убираем жёсткий min-width на узких экранах
+    const metaGrid = document.querySelector('.meta-grid');
+    if (metaGrid) {
+      metaGrid.style.minWidth = isNarrow ? '0' : '360px';
+    }
+
+    // form rows: 2 -> 1 колонка на узких экранах
+    document.querySelectorAll('.row').forEach((row) => {
+      row.style.gridTemplateColumns = isNarrow ? '1fr' : 'repeat(2, 1fr)';
+    });
+
+    // длинные подписи не ломают вёрстку
+    document.querySelectorAll('.meta-item, label span').forEach((el) => {
+      el.style.whiteSpace = isNarrow ? 'normal' : 'nowrap';
+    });
+  }
+
+  applyResponsive();
+  window.addEventListener('resize', applyResponsive);
+})();
+</script>
+
+
 </body>
 </html>
-  
